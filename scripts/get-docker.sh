@@ -18,7 +18,7 @@ sudo apt-get update
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
-sudo usermod -aG docker $USER
+sudo usermod -aG docker $1
 
 sudo service docker stop
 
@@ -33,4 +33,4 @@ sudo chown root:root /etc/docker/daemon.json
 
 sudo service docker restart
 
-sudo docker run hello-world
+docker pull releases-docker.jfrog.io/jfrog/artifactory-oss:latest
