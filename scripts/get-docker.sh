@@ -27,7 +27,7 @@ sudo chown -R root:root /mnt/data-8/docker-data
 sudo rm -rf /var/lib/docker
 
 sudo touch /etc/docker/daemon.json
-sudo chown motoko:motoko /etc/docker/daemon.json
+sudo chown $USER:$USER /etc/docker/daemon.json
 echo "{  \"data-root\": \"/mnt/data-8/docker-data\"  }" > /etc/docker/daemon.json
 sudo chown root:root /etc/docker/daemon.json
 
