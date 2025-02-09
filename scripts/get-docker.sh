@@ -1,5 +1,13 @@
 #!/bin/bash
 
+TARGET_USER=$1
+
+if [[ -z "$TARGET_USER" ]] ; then
+  echo "Usage: $0 <target_user>"
+  echo "Example: $0 motoko"
+  exit 1
+fi
+
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
 
 # Add Docker's official GPG key:
@@ -18,11 +26,13 @@ sudo apt-get update
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
-sudo usermod -aG docker $1
+sudo usermod -aG docker $TARGET_USER
 
 sudo service docker stop
 
+sudo mkdir /mnt/data-8/
 sudo cp -r /var/lib/docker /mnt/data-8/docker-data
+sudo chown -R $TARGET_USER:$TARGET_USER /mnt/data-8/
 sudo chown -R root:root /mnt/data-8/docker-data
 sudo rm -rf /var/lib/docker
 
@@ -33,4 +43,4 @@ sudo chown root:root /etc/docker/daemon.json
 
 sudo service docker restart
 
-docker pull releases-docker.jfrog.io/jfrog/artifactory-oss:latest
+sudo docker pull releases-docker.jfrog.io/jfrog/artifactory-oss:latest
