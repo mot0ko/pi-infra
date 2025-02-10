@@ -90,6 +90,7 @@ packages:
   - htop
   - nfs-kernel-server
   - ca-certificates
+  - net-tools
 
 runcmd:
   - echo "Welcome to Raspberry Pi" > /etc/motd
