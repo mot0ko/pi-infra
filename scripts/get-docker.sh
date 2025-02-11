@@ -42,5 +42,3 @@ echo "{  \"data-root\": \"/mnt/data-8/docker-data\"  }" > /etc/docker/daemon.jso
 sudo chown root:root /etc/docker/daemon.json
 
 sudo service docker restart
-
-sudo docker pull releases-docker.jfrog.io/jfrog/artifactory-oss:latest
