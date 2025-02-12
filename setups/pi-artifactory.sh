@@ -82,7 +82,7 @@ mounts:
   - [ LABEL=data-8, /mnt/data-8, "ext4", "defaults,nofail", "0", "2" ]
   - [ pi-nas:/mnt/server-3, /mnt/server-3, "nfs", "defaults,nofail", "0", "0" ]
 
-hostname: pi-artifactory
+hostname: pi-repos
 
 packages:
   - vim
