@@ -1,10 +1,11 @@
 #!/bin/bash
 
 TARGET_USER=$1
+TARGET_DATADIR=$2
 
-if [[ -z "$TARGET_USER" ]] ; then
-  echo "Usage: $0 <target_user>"
-  echo "Example: $0 motoko"
+if [[ -z "$TARGET_USER" || -z "$TARGET_DATADIR" ]] ; then
+  echo "Usage: $0 <target_user> <target_datadir>"
+  echo "Example: $0 motoko /mnt/data/"
   exit 1
 fi
 
@@ -30,15 +31,16 @@ sudo usermod -aG docker $TARGET_USER
 
 sudo service docker stop
 
-sudo mkdir /mnt/data-8/
-sudo cp -r /var/lib/docker /mnt/data-8/docker-data
-sudo chown -R $TARGET_USER:$TARGET_USER /mnt/data-8/
-sudo chown -R root:root /mnt/data-8/docker-data
+# In case the dir doesn't exist yet, should be created
+# sudo mkdir "$TARGET_DATADIR/"
+# sudo chown -R "$TARGET_USER:$TARGET_USER $TARGET_DATADIR/"
+sudo cp -r /var/lib/docker "$TARGET_DATADIR/docker-data"
+sudo chown -R root:root "$TARGET_DATADIR/docker-data"
 sudo rm -rf /var/lib/docker
 
 sudo touch /etc/docker/daemon.json
 sudo chown $USER:$USER /etc/docker/daemon.json
-echo "{  \"data-root\": \"/mnt/data-8/docker-data\"  }" > /etc/docker/daemon.json
+echo "{  \"data-root\": \"$TARGET_DATADIR/docker-data\"  }" > /etc/docker/daemon.json
 sudo chown root:root /etc/docker/daemon.json
 
 sudo service docker restart
