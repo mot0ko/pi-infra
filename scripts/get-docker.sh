@@ -32,8 +32,15 @@ sudo usermod -aG docker $TARGET_USER
 sudo service docker stop
 
 # In case the dir doesn't exist yet, should be created
-# sudo mkdir "$TARGET_DATADIR/"
-# sudo chown -R "$TARGET_USER:$TARGET_USER $TARGET_DATADIR/"
+if [ ! -d "$TARGET_DATADIR" ]; then
+    sudo mkdir -p "$TARGET_DATADIR"
+    echo "Directory created: $TARGET_DATADIR"
+else
+    echo "Directory already exists: $TARGET_DATADIR"
+fi
+
+sudo chown -R "$TARGET_USER:$TARGET_USER $TARGET_DATADIR/"
+
 sudo cp -r /var/lib/docker "$TARGET_DATADIR/docker-data"
 sudo chown -R root:root "$TARGET_DATADIR/docker-data"
 sudo rm -rf /var/lib/docker
