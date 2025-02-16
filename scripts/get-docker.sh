@@ -1,9 +1,9 @@
 #!/bin/bash
 
 TARGET_USER=$1
-TARGET_DATADIR=$2
+SERVER_DATADIR=$2
 
-if [[ -z "$TARGET_USER" || -z "$TARGET_DATADIR" ]] ; then
+if [[ -z "$TARGET_USER" || -z "$SERVER_DATADIR" ]] ; then
   echo "Usage: $0 <target_user> <target_datadir>"
   echo "Example: $0 motoko /mnt/data/"
   exit 1
@@ -32,22 +32,22 @@ sudo usermod -aG docker $TARGET_USER
 sudo service docker stop
 
 # In case the dir doesn't exist yet, should be created
-if [ ! -d "$TARGET_DATADIR" ]; then
-    sudo mkdir -p "$TARGET_DATADIR"
-    echo "Directory created: $TARGET_DATADIR"
+if [ ! -d "$SERVER_DATADIR" ]; then
+    sudo mkdir -p "$SERVER_DATADIR"
+    echo "Directory created: $SERVER_DATADIR"
 else
-    echo "Directory already exists: $TARGET_DATADIR"
+    echo "Directory already exists: $SERVER_DATADIR"
 fi
 
-sudo chown -R "$TARGET_USER:$TARGET_USER $TARGET_DATADIR/"
+sudo chown -R $TARGET_USER:$TARGET_USER "$SERVER_DATADIR/"
 
-sudo cp -r /var/lib/docker "$TARGET_DATADIR/docker-data"
-sudo chown -R root:root "$TARGET_DATADIR/docker-data"
+sudo cp -r /var/lib/docker "$SERVER_DATADIR/docker-data"
+sudo chown -R root:root "$SERVER_DATADIR/docker-data"
 sudo rm -rf /var/lib/docker
 
 sudo touch /etc/docker/daemon.json
 sudo chown $USER:$USER /etc/docker/daemon.json
-echo "{  \"data-root\": \"$TARGET_DATADIR/docker-data\"  }" > /etc/docker/daemon.json
+echo "{  \"data-root\": \"$SERVER_DATADIR/docker-data\"  }" > /etc/docker/daemon.json
 sudo chown root:root /etc/docker/daemon.json
 
 sudo service docker restart
