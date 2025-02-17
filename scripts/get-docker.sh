@@ -52,3 +52,4 @@ chown root:root /etc/docker/daemon.json
 
 service docker restart
 
+echo "SERVER_DATADIR=$SERVER_DATADIR" >> /etc/environment
