@@ -79,7 +79,7 @@ users:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDht78kgOnlqAJY8turXqKBAcuqknNnu1UJM+KvdndY4qhPn2tZJHl2b40YY/3XWTQehzuN4Jt760o7Rc9eHDGS+94/pNuR+uHXBIUUQd186RWwkLz5YTfh5QROGG6DaeUErDgJbtfip9FLMyMm9s5YmB9eYDO/qSgtWB36MTIlFUhNYpOK3lVlAOCIyS2GM/illIug9TurGcJTXhV+rKH8GWnprkNsOLOQ4P468OrGv9ypKR9tH8y7Mlyrz5OJzKfJzzbnXZJrGEWw1OLUIxXwamlsiFP5Amk/WkXVolvQQZog3g+RddeOOSZmstOuz2NhA9uJ7mpG14NPLCQ790oW/d2Emd95hjt+kuvRhFl/r/axLdHdPdwVZ73fkerl1SMdwiprKGKepp3bulqsaetMoE8uKN+ojo5588/gU/W2XxJBoUfwPvFV1pScUgRw6ZlzIbTKG6+BuftLsu3T26KfdQxeZmNSF+dD/eyqEhVX/DGLqny8YBH6gCLDDCatiFs= motoko@motoko-main
 
 mounts:
-  - [ LABEL=data-8, /mnt/data-8, "ext4", "defaults,nofail", "0", "2" ]
+  - [ LABEL=data-8, /mnt/data, "ext4", "defaults,nofail", "0", "2" ]
   - [ pi-nas:/mnt/server-3, /mnt/server-3, "nfs", "defaults,nofail", "0", "0" ]
 
 hostname: pi-repos
@@ -95,7 +95,7 @@ packages:
 runcmd:
   - echo "Welcome to Raspberry Pi" > /etc/motd
   - apt update && apt upgrade -y
-  - if [ -f "/home/get-docker.sh" ] ; then chmod +x /home/get-docker.sh ; /home/get-docker.sh "$FUTURE_USER_NAME"; fi
+  - if [ -f "/home/get-docker.sh" ] ; then chmod +x /home/get-docker.sh ; sudo /home/get-docker.sh "$FUTURE_USER_NAME" "/mnt/data"; fi
   - reboot
 EOF
 
