@@ -125,7 +125,9 @@ hdmi_group=1
 hdmi_mode=4
 EOF
 
-sudo cp "/home/motoko/Documents/dev/git/pi-infra/scripts/get-docker.sh" "$MOUNT_WRITABLE/home/get-docker.sh"
+sudo cp "scripts/get-docker.sh" "$MOUNT_WRITABLE/home/get-docker.sh"
+sudo cp "scripts/artifactory-install.sh" "$MOUNT_WRITABLE/home/artifactory-install.sh"
+sudo cp "config/docker/artifactory.yaml" "$MOUNT_WRITABLE/home/artifactory.yaml"
 
 sleep 5
 
