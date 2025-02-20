@@ -125,9 +125,10 @@ hdmi_group=1
 hdmi_mode=4
 EOF
 
-sudo cp "scripts/get-docker.sh" "$MOUNT_WRITABLE/home/get-docker.sh"
-sudo cp "scripts/artifactory-install.sh" "$MOUNT_WRITABLE/home/artifactory-install.sh"
-sudo cp "config/docker/artifactory.yaml" "$MOUNT_WRITABLE/home/artifactory.yaml"
+sudo mkdir "$MOUNT_WRITABLE/home/install-package/"
+sudo cp "scripts/get-docker.sh" "$MOUNT_WRITABLE/home/install-package/get-docker.sh"
+sudo cp "scripts/artifactory-install.sh" "$MOUNT_WRITABLE/home/install-package/artifactory-install.sh"
+sudo cp "config/docker/artifactory.yaml" "$MOUNT_WRITABLE/home/install-package/artifactory.yaml"
 
 sleep 5
 
