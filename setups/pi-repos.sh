@@ -94,7 +94,7 @@ packages:
 runcmd:
   - echo "Welcome to Raspberry Pi" > /etc/motd
   - apt update && apt upgrade -y
-  - if [ -f "/home/get-docker.sh" ] ; then chmod +x /home/get-docker.sh ; sudo /home/get-docker.sh "$FUTURE_USER_NAME" "/mnt/data"; fi
+  - if [ -f "/home/install-package/get-docker.sh" ] ; then chmod +x /home/install-package/get-docker.sh ; sudo /home/install-package/get-docker.sh "$FUTURE_USER_NAME" "/mnt/data"; fi
   - reboot
 EOF
 
